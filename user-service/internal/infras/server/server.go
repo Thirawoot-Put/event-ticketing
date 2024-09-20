@@ -1,6 +1,11 @@
 package server
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/Thirawoot-Put/event-ticketing/user-service/internal/infras/db"
+	"github.com/gin-gonic/gin"
+)
 
 type Server struct {
 	app *gin.Engine
@@ -15,6 +20,7 @@ func AppServer() *Server {
 }
 
 func (s *Server) HttpListenPort(port string) {
+	fmt.Println("---------> port", port)
 	err := s.app.Run(port)
 
 	if err != nil {
@@ -23,5 +29,7 @@ func (s *Server) HttpListenPort(port string) {
 }
 
 func (s *Server) Start(port string) {
-	s.HttpListenPort(port)
+
+	db.Connect()
+	s.HttpListenPort(":" + port)
 }
