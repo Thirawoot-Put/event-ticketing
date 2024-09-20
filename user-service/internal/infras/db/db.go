@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func Connecting() *gorm.DB {
+func Connect() *gorm.DB {
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		os.Getenv("DB_HOST"),
