@@ -1,8 +1,6 @@
 package server
 
 import (
-	"fmt"
-
 	"github.com/Thirawoot-Put/event-ticketing/user-service/internal/infras/db"
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +18,6 @@ func AppServer() *Server {
 }
 
 func (s *Server) HttpListenPort(port string) {
-	fmt.Println("---------> port", port)
 	err := s.app.Run(port)
 
 	if err != nil {
