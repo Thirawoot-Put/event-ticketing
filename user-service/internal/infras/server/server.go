@@ -32,8 +32,14 @@ func (s *Server) Start(port string) {
 
 	url := fmt.Sprintf(":%s", port)
 
-	r := gin.Default()
-	r.GET("/healthz-check", func(c *gin.Context) {
+	// r := gin.Default()
+	// r.GET("/healthz-check", func(c *gin.Context) {
+	// 	c.JSON(http.StatusOK, gin.H{
+	// 		"message": "App health OK",
+	// 	})
+	// })
+
+	s.app.GET("/healthz-check", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "App health OK",
 		})
