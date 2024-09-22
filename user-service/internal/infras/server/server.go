@@ -1,6 +1,8 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/Thirawoot-Put/event-ticketing/user-service/internal/infras/db"
 	"github.com/gin-gonic/gin"
 )
@@ -26,7 +28,14 @@ func (s *Server) HttpListenPort(port string) {
 }
 
 func (s *Server) Start(port string) {
-
 	db.Connect()
-	s.HttpListenPort(":" + port)
+
+	r := gin.Default()
+	r.GET("/healthz-check", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "App health OK",
+		})
+	})
+
+	s.HttpListenPort("localhost:" + port)
 }
