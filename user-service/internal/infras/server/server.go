@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Thirawoot-Put/event-ticketing/user-service/internal/infras/db"
@@ -21,7 +22,6 @@ func AppServer() *Server {
 
 func (s *Server) HttpListenPort(port string) {
 	err := s.app.Run(port)
-
 	if err != nil {
 		panic("Failed to start user service")
 	}
@@ -30,6 +30,8 @@ func (s *Server) HttpListenPort(port string) {
 func (s *Server) Start(port string) {
 	db.Connect()
 
+	url := fmt.Sprintf(":%s", port)
+
 	r := gin.Default()
 	r.GET("/healthz-check", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -37,5 +39,5 @@ func (s *Server) Start(port string) {
 		})
 	})
 
-	s.HttpListenPort("localhost:" + port)
+	s.HttpListenPort(url)
 }
